@@ -42,4 +42,36 @@ orders['order_date'] = orders['order_date'].ffill()
 
 # RETURNS
 
-print(returns)
+# Fill the null values for refund_amount
+returns['refund_amount'] = returns['refund_amount'].fillna(returns['refund_amount'].median())
+
+# Standardize return_reason
+returns.loc[
+    returns['return_reason'].str.contains('damaged', case=False, na=False),
+    'return_reason'
+] = 'Damaged'
+
+returns.loc[
+    returns['return_reason'].str.contains('wrong item', case=False, na=False),
+    'return_reason'
+] = 'Wrong item'
+
+# Standardize return_status
+returns.loc[
+    returns['return_status'].str.contains('approved', case=True, na=True),
+    'return_status'
+] = 'Approved'
+
+# Remove duplicates
+returns = returns.drop_duplicates()
+
+# Clean negative values on integer columns
+returns['refund_amount'] = returns['refund_amount'].abs()
+
+# Clean date column
+
+returns['return_date'] = pd.to_datetime(
+    returns['return_date'],
+    errors='coerce'
+)
+returns['return_date'] = returns['return_date'].ffill()
