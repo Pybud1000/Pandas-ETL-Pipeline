@@ -1,0 +1,10 @@
+return_id,order_id,return_date,return_reason,refund_amount,return_status
+RET-001,ORD-003,2026-08-07,Damaged,599.97,Approved
+RET-002,ORD-005,2026-08-08,Wrong item,999.98,Approved
+RET-003,ORD-009,2026-08-10,Changed Mind,399.98,Pending
+RET-004,ORD-011,2026-08-12,Damaged,1198.0,Approved
+RET-005,ORD-999,2026-08-12,Wrong item,500.0,Approved
+RET-006,ORD-008,2026-08-13,Defective,999.98,Pending
+RET-007,ORD-010,2026-08-14,Changed Mind,799.0,Approved
+RET-008,ORD-012,2026-08-14,Damaged,1599.0,Approved
+RET-009,ORD-002,2026-08-14,Wrong item,1299.5,Approved

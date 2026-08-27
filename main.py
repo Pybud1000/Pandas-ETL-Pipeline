@@ -75,3 +75,45 @@ returns['return_date'] = pd.to_datetime(
     errors='coerce'
 )
 returns['return_date'] = returns['return_date'].ffill()
+
+# TICKETS
+
+# Customer ID null values
+tickets['customer_id'] = tickets['customer_id'].fillna('Unknown')
+
+# Priority column synthetic filling
+tickets['priority'] = tickets['priority'].fillna('Low')
+
+# Standardize category
+tickets.loc[
+    tickets['category'].str.contains('delivery', case=False, na=False),
+    'category'
+] = 'Delivery'
+
+# Standardize priority
+tickets.loc[
+    tickets['priority'].str.contains('high', case=False, na=False),
+    'priority'
+] = 'High'
+
+tickets.loc[
+    tickets['priority'].str.contains('medium', case=False, na=False),
+    'priority'
+] = 'Medium'
+
+# Drop Duplicate values
+tickets = tickets.drop_duplicates()
+
+# ANOMALIES
+tickets['ticket_date'] = pd.to_datetime(
+    tickets['ticket_date'],
+    errors='coerce'
+)
+
+tickets['ticket_date'] = tickets['ticket_date'].ffill()
+
+# EXPORTING ALL THREE FILES
+
+orders.to_csv(r'C:\Users\PCXPC\Documents\super secret hehehe\Projects\Pandas ETL\data\clean\clean_orders.csv', index=False)
+returns.to_csv(r'C:\Users\PCXPC\Documents\super secret hehehe\Projects\Pandas ETL\data\clean\clean_returns.csv', index=False)
+tickets.to_csv(r'C:\Users\PCXPC\Documents\super secret hehehe\Projects\Pandas ETL\data\clean\clean_tickets.csv', index=False)
